@@ -27,3 +27,4 @@ def test_contact_clear(app):
                             fax_phone="", email_add="",
                             email2_add="", email3_add=""))
     app.logout()
+
