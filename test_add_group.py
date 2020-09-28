@@ -10,26 +10,27 @@ class TestAddGroup(unittest.TestCase):
 
     
     def test_add_group(self):
-        wd = self.wd
-        self.login(wd, password="secret", login="admin")
-        self.create_group(wd, Group(group_header="header", group_name="team", group_footer="footer"))
-        self.logout(wd)
+        self.login(password="secret", login="admin")
+        self.create_group(Group(group_header="header", group_name="team", group_footer="footer"))
+        self.logout()
 
 
     def test_add_clear_group(self):
-        wd = self.wd
-        self.login(wd, password="secret", login="admin")
-        self.create_group(wd, Group(group_header="", group_name="", group_footer=""))
-        self.logout(wd)
+        self.login(password="secret", login="admin")
+        self.create_group(Group(group_header="", group_name="", group_footer=""))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def return_to_groups_page(self, wd):
+    def return_to_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("group page").click()
 
-    def create_group(self, wd, group):
-        self.open_groups_page(wd)
+    def create_group(self, group):
+        wd = self.wd
+        self.open_groups_page()
         # init_group_form
         wd.find_element_by_name("new").click()
         # fill group form
@@ -44,13 +45,15 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("group_footer").send_keys(group.group_footer)
         # submit group creation
         wd.find_element_by_name("submit").click()
-        self.return_to_groups_page(wd)
+        self.return_to_groups_page()
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def login(self, wd, password, login):
-        self.open_home_page(wd)
+    def login(self, password, login):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(login)
@@ -58,7 +61,8 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
     def tearDown(self):
