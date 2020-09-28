@@ -21,3 +21,4 @@ def test_add_clear_group(app):
     app.login(password="secret", login="admin")
     app.create_group(Group(group_header="", group_name="", group_footer=""))
     app.logout()
+
