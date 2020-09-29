@@ -28,3 +28,4 @@ def test_contact_clear(app):
                                email2_add="", email3_add=""))
     app.session.logout()
 
+

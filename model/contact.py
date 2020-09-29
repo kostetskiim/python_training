@@ -12,3 +12,4 @@ class Contact:
         self.email_add = email_add
         self.email2_add = email2_add
         self.email3_add = email3_add
+
