@@ -1,15 +1,17 @@
 class Contact:
-    def __init__(self, first_name, last_name, address, home_phone, mobile_phone, work_phone, fax_phone,
-                 email_add, email2_add, email3_add):
-        self.first_name = first_name
-        self.last_name = last_name
+    def __init__(self, firstname=None, lastname=None, address=None, home=None,
+                 mobile=None, work=None, fax=None,
+                 email=None, email2=None, email3=None):
+        self.firstname = firstname
+        self.lastname = lastname
         self.address = address
-        self.home_phone = home_phone
-        self.mobile_phone = mobile_phone
-        self.work_phone = work_phone
-        self.work_phone = work_phone
-        self.fax_phone = fax_phone
-        self.email_add = email_add
-        self.email2_add = email2_add
-        self.email3_add = email3_add
+        self.home = home
+        self.mobile = mobile
+        self.work = work
+        self.fax = fax
+        self.email = email
+        self.email2 = email2
+        self.email3 = email3
+
+
 

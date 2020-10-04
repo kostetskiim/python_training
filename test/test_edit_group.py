@@ -14,6 +14,6 @@ def test_edit_name(app):
 
 
 def test_edit_footer(app):
-        app.session.login(password="secret", login="admin")
-        app.group.edit_group(Group(group_footer="edik3"))
-        app.session.logout()
+    app.session.login(password="secret", login="admin")
+    app.group.edit_group(Group(group_footer="edik3"))
+    app.session.logout()
