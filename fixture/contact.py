@@ -35,7 +35,9 @@ class ContactHelper:
 
     def open_contacts_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+            wd.find_element_by_link_text("home").click()
+            wd.find_element_by_link_text("add new").click()
 
     def delete_contact(self):
         wd = self.app.wd
@@ -46,11 +48,15 @@ class ContactHelper:
 
     def edit_contact(self, contact):
         wd = self.app.wd
-        wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click()
+        self.edit_page_open()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.return_to_home_page()
 
+    def edit_page_open(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/edit.php?id=") and len(wd.find_elements_by_name("update")) > 0):
+            wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click()
 
     def count(self):
         wd = self.app.wd
