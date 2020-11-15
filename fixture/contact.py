@@ -14,6 +14,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         self.condition_edit(contact.firstname, "firstname")
@@ -26,6 +27,7 @@ class ContactHelper:
         self.condition_edit(contact.email, "email")
         self.condition_edit(contact.email, "email2")
         self.condition_edit(contact.email, "email3")
+        self.contact_cache = None
 
 
     def condition_edit(self, text, field_name):
@@ -64,14 +66,17 @@ class ContactHelper:
         self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cache = None
+
 
     def get_contact_list(self):
-        wd = self.app.wd
-        self.app.open_home_page()
-        contact_list = []
-        for cont in wd.find_elements_by_name("entry"):
-            id = cont.find_element_by_name("selected[]").get_attribute("id")
-            lastname = cont.find_element_by_xpath("./td[2]").text
-            firstname = cont.find_element_by_xpath("./td[3]").text
-            contact_list.append(Contact(id=id, lastname=lastname, firstname=firstname))
-        return contact_list
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.app.open_home_page()
+            self.contact_cache = []
+            for cont in wd.find_elements_by_name("entry"):
+                id = cont.find_element_by_name("selected[]").get_attribute("id")
+                lastname = cont.find_element_by_xpath("./td[2]").text
+                firstname = cont.find_element_by_xpath("./td[3]").text
+                self.contact_cache.append(Contact(id=id, lastname=lastname, firstname=firstname))
+        return list(self.contact_cache)
