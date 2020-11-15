@@ -42,18 +42,38 @@ class ContactHelper:
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
             wd.find_element_by_link_text("add new").click()
 
+
     def delete_contact(self):
+        self.delete_contact_by_index(0)
+
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        self.app.open_home_page()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
 
-    def edit_contact(self, contact):
+    def edit_contact(self):
+        self.edit_contact_by_index(0)
+
+
+    def edit_contact_by_index(self, contact, index):
         wd = self.app.wd
         self.edit_page_open()
         self.fill_contact_form(contact)
-        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         self.return_to_home_page()
 
     def edit_page_open(self):
