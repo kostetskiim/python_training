@@ -86,7 +86,14 @@ class ContactHelper:
         self.change_field_value("firstname", Contact.firstname)
         self.change_field_value("middlename", Contact.middlename)
         self.change_field_value("lastname", Contact.lastname)
-
+        self.change_field_value("address", Contact.address)
+        self.change_field_value("email" , Contact.email)
+        self.change_field_value("email2" , Contact.email2)
+        self.change_field_value("email3" , Contact.email3)
+        self.change_field_value("home" , Contact.homephone)
+        self.change_field_value("mobile" , Contact.mobilephone)
+        self.change_field_value("work" , Contact.workphone)
+        self.change_field_value("phone2" , Contact.secondaryphone)
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
