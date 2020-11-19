@@ -20,9 +20,17 @@ class Application:
         except:
             return False
 
+    def return_to_home_page(self):
+        # retutn to home page
+        wd = self.wd
+        wd.find_element_by_link_text("home page").click()
+
     def open_home_page(self):
+        # open home page
         wd = self.wd
         wd.get("http://localhost/addressbook/")
+
+
 
 
     def destroy(self):

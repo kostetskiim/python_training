@@ -3,28 +3,35 @@ from random import randrange
 
 def test_edit_first_name(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="Test"))
+        app.contact.add_contact(Contact(firstname="Test"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = Contact(firstname="test")
-    contact.id = old_contacts[index].id
-    app.contact.edit_contact_by_index(contact, index)
-    assert len(old_contacts) == app.contact.count()
+    cont = Contact(firstname="test")
+    cont.id = old_contacts[index].id
+    cont.firstname = old_contacts[index].firstname
+    cont.lastname = old_contacts[index].lastname
+    cont.middlename = old_contacts[index].middlename
+    app.contact.modify_contact_by_index(index, cont)
     new_contacts = app.contact.get_contact_list()
-    old_contacts[index] = contact
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[index] = cont
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
 
 def test_edit_last_name(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(lastname="Test"))
+        app.contact.add_contact(Contact(lastname="Test"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = Contact(lastname="test")
-    contact.id = old_contacts[index].id
-    app.contact.edit_contact_by_index(contact, index)
-    assert len(old_contacts) == app.contact.count()
+    cont = Contact(lastname="test")
+    cont.id = old_contacts[index].id
+    cont.firstname = old_contacts[index].firstname
+    cont.lastname = old_contacts[index].lastname
+    cont.middlename = old_contacts[index].middlename
+    app.contact.modify_contact_by_index(index, cont)
     new_contacts = app.contact.get_contact_list()
-    old_contacts[index] = contact
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[index] = cont
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 
